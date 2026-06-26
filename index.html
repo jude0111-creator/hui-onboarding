@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#FEE500">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="HUI 온보딩">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23FEE500'/%3E%3Ctext x='50' y='62' font-size='44' text-anchor='middle' fill='%233C1E1E' font-family='Arial' font-weight='bold'%3E%E8%BC%9D%3C/text%3E%3C/svg%3E">
+<title>AI 품질운영팀 통합 온보딩 가이드</title>
+<style>
+  :root{
+    --c-bg:#FFFDF2;
+    --c-card:#FFFFFF;
+    --c-border:#F0E27A;
+    --c-text:#3C1E1E;
+    --c-text2:#5B4B30;
+    --c-text3:#8C7B4F;
+    --c-accent:#3C1E1E;
+    --c-accent-bg:#FFF1A8;
+    --c-accent-text:#3C1E1E;
+    --c-yellow:#FEE500;
+    --c-teal:#0F6E56;
+    --c-teal-bg:#E1F5EE;
+    --c-teal-text:#085041;
+    --c-amber-bg:#FFF1C2;
+    --c-amber-text:#7A5B00;
+    --c-green-bg:#EAF3DE;
+    --c-green-text:#27500A;
+    --c-red-bg:#FCEBEB;
+    --c-red-text:#791F1F;
+    --c-purple-bg:#EEEDFE;
+    --c-purple-text:#3C3489;
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Segoe UI",Roboto,sans-serif;
+    background:var(--c-bg);
+    color:var(--c-text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:480px;margin:0 auto;padding-bottom:60px;}
+
+  /* Hero */
+  .hero{
+    background:linear-gradient(180deg,#FEE500 0%, var(--c-bg) 100%);
+    padding:36px 20px 24px;
+    text-align:center;
+    border-bottom:1px solid var(--c-border);
+  }
+  .hero .glyph{font-size:13px;letter-spacing:0.2em;color:var(--c-accent);font-weight:600;margin-bottom:10px;}
+  .hero h1{font-size:22px;font-weight:700;margin:0 0 6px;color:var(--c-text);}
+  .hero h2{font-size:15px;font-weight:500;color:var(--c-text2);margin:0 0 14px;}
+  .hero .sub{font-size:13px;color:var(--c-text3);font-style:italic;margin:0 0 4px;}
+  .hero .tag{
+    display:inline-block;margin-top:14px;padding:6px 14px;
+    background:var(--c-yellow);color:#3C1E1E;border-radius:999px;
+    font-size:12px;font-weight:600;letter-spacing:0.05em;
+  }
+
+  /* Sticky nav */
+  .navbar{
+    position:sticky;top:0;z-index:50;
+    background:rgba(255,253,242,0.94);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--c-border);
+    overflow-x:auto;
+    white-space:nowrap;
+    padding:10px 12px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .navbar::-webkit-scrollbar{display:none;}
+  .navbar a{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:500;
+    color:var(--c-text2);
+    background:var(--c-card);
+    border:1px solid var(--c-border);
+    border-radius:999px;
+    padding:7px 13px;
+    margin-right:6px;
+    text-decoration:none;
+    transition:all .15s;
+  }
+  .navbar a.active{
+    background:var(--c-yellow);
+    color:#3C1E1E;
+    border-color:#E8D200;
+  }
+
+  section{padding:30px 18px 8px;scroll-margin-top:54px;}
+  .section-num{
+    font-size:12px;font-weight:700;color:var(--c-accent);
+    letter-spacing:0.05em;margin-bottom:4px;
+  }
+  h2.title{font-size:19px;font-weight:700;margin:0 0 16px;color:var(--c-text);}
+
+  .card{
+    background:var(--c-card);
+    border:1px solid var(--c-border);
+    border-radius:var(--radius);
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .quote-card{
+    background:var(--c-amber-bg);
+    border:none;
+    border-left:3px solid #EF9F27;
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:14px 16px;
+    margin-bottom:12px;
+    font-size:14px;
+    font-style:italic;
+    color:var(--c-amber-text);
+  }
+  .quote-card .who{
+    display:block;margin-top:8px;font-style:normal;font-size:12px;font-weight:600;opacity:0.8;
+  }
+  .note-card{
+    background:var(--c-red-bg);
+    border-left:3px solid #E24B4A;
+    border-radius:0 var(--radius) var(--radius) 0;
+    padding:14px 16px;margin-bottom:12px;font-size:13.5px;color:var(--c-red-text);
+  }
+  .note-card b{display:block;margin-bottom:4px;font-size:13px;}
+
+  /* value cards H.U.I */
+  .value-grid{display:flex;flex-direction:column;gap:10px;}
+  .value-card{
+    border-radius:var(--radius);
+    padding:14px 16px;
+    display:flex;
+    gap:12px;
+    align-items:flex-start;
+  }
+  .value-card .letter{
+    font-size:22px;font-weight:700;width:34px;flex-shrink:0;text-align:center;
+  }
+  .value-card .body p.t{font-size:14px;font-weight:700;margin:0 0 4px;}
+  .value-card .body p.d{font-size:13px;margin:0;line-height:1.5;opacity:0.9;}
+  .vc-1{background:var(--c-teal-bg);} .vc-1 .letter,.vc-1 p.t{color:var(--c-teal-text);} .vc-1 p.d{color:var(--c-teal-text);}
+  .vc-2{background:#FFF1A8;} .vc-2 .letter,.vc-2 p.t{color:#5B4500;} .vc-2 p.d{color:#5B4500;}
+  .vc-3{background:var(--c-purple-bg);} .vc-3 .letter,.vc-3 p.t{color:var(--c-purple-text);} .vc-3 p.d{color:var(--c-purple-text);}
+
+  ul.plain{margin:0;padding-left:18px;font-size:13.5px;}
+  ul.plain li{margin-bottom:6px;}
+
+  /* business area cards */
+  .biz-card{
+    background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--radius);
+    padding:14px 16px;margin-bottom:10px;
+  }
+  .biz-card .name{font-size:14px;font-weight:700;margin:0 0 6px;color:var(--c-accent-text);}
+  .biz-card .desc{font-size:13px;color:var(--c-text2);margin:0;}
+
+  /* scenario table-cards */
+  .scenario{
+    background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--radius);
+    padding:14px 16px;margin-bottom:10px;
+  }
+  .scenario .kw{
+    display:inline-block;font-size:11px;font-weight:700;
+    background:var(--c-purple-bg);color:var(--c-purple-text);
+    padding:3px 9px;border-radius:999px;margin-bottom:8px;
+  }
+  .scenario .u{font-size:13.5px;color:var(--c-text);margin:0 0 6px;font-weight:500;}
+  .scenario .a{font-size:13px;color:var(--c-text2);margin:0;padding-left:14px;border-left:2px solid var(--c-border);}
+
+  /* org table */
+  .org-row{
+    display:flex;justify-content:space-between;align-items:center;
+    padding:10px 0;border-bottom:1px solid var(--c-border);font-size:13.5px;
+  }
+  .org-row:last-child{border-bottom:none;}
+  .org-row .area{color:var(--c-text2);}
+  .org-row .person{font-weight:700;color:var(--c-text);}
+
+  .help-row{
+    display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--c-border);font-size:13px;
+  }
+  .help-row:last-child{border-bottom:none;}
+  .help-row .sit{flex:1;color:var(--c-text2);}
+  .help-row .who{font-weight:600;color:var(--c-text);}
+
+  /* timeline */
+  .tl{position:relative;padding-left:22px;}
+  .tl::before{content:"";position:absolute;left:6px;top:6px;bottom:6px;width:2px;background:var(--c-border);}
+  .tl-item{position:relative;margin-bottom:16px;}
+  .tl-item::before{content:"";position:absolute;left:-22px;top:4px;width:10px;height:10px;border-radius:50%;background:var(--c-accent);}
+  .tl-item .period{font-size:12px;font-weight:700;color:var(--c-accent-text);margin-bottom:3px;}
+  .tl-item .desc{font-size:13.5px;color:var(--c-text2);}
+
+  /* checklist */
+  .chk-group{margin-bottom:14px;}
+  .chk-group .when{font-size:13px;font-weight:700;color:var(--c-teal-text);margin-bottom:6px;}
+  .chk-item{
+    display:flex;align-items:flex-start;gap:8px;padding:7px 0;font-size:13.5px;
+    border-bottom:1px solid var(--c-border);
+  }
+  .chk-item:last-child{border-bottom:none;}
+  .chk-item input{margin-top:3px;width:16px;height:16px;flex-shrink:0;accent-color:var(--c-accent);}
+  .chk-item label{color:var(--c-text2);}
+
+  /* simple data table */
+  table.dt{width:100%;border-collapse:collapse;font-size:12.5px;margin-bottom:6px;}
+  table.dt th{
+    background:var(--c-yellow);color:#3C1E1E;font-weight:600;padding:8px 6px;text-align:left;
+  }
+  table.dt td{padding:8px 6px;border-bottom:1px solid var(--c-border);color:var(--c-text2);}
+  table.dt tr:last-child td{border-bottom:none;}
+  .dt-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+
+  .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
+  .metric{background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--radius);padding:12px 14px;}
+  .metric .lbl{font-size:11.5px;color:var(--c-text3);margin:0 0 4px;}
+  .metric .val{font-size:15px;font-weight:700;color:var(--c-text);margin:0;}
+
+  /* way cards */
+  .way-card{
+    display:flex;gap:12px;align-items:flex-start;
+    padding:12px 0;border-bottom:1px solid var(--c-border);
+  }
+  .way-card:last-child{border-bottom:none;}
+  .way-card .n{
+    width:26px;height:26px;border-radius:50%;background:var(--c-accent-bg);color:var(--c-accent-text);
+    font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .way-card .t{font-size:13.5px;font-weight:700;margin:0 0 2px;}
+  .way-card .d{font-size:12.5px;color:var(--c-text2);margin:0;}
+
+  .pill-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .pill{
+    font-size:12px;padding:6px 12px;border-radius:999px;font-weight:500;
+  }
+  .pill.green{background:var(--c-green-bg);color:var(--c-green-text);}
+  .pill.amber{background:var(--c-amber-bg);color:var(--c-amber-text);}
+  .pill.gray{background:#F1EFE0;color:#5B4B30;}
+
+  .restaurant{
+    background:var(--c-card);border:1px solid var(--c-border);border-radius:var(--radius);
+    padding:12px 14px;margin-bottom:8px;
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+  }
+  .restaurant .nm{font-size:13.5px;font-weight:700;margin:0 0 2px;}
+  .restaurant .ds{font-size:12px;color:var(--c-text2);margin:0;}
+  .restaurant .pr{font-size:12px;font-weight:600;color:var(--c-accent-text);white-space:nowrap;}
+
+  .glossary-item{padding:10px 0;border-bottom:1px solid var(--c-border);}
+  .glossary-item:last-child{border-bottom:none;}
+  .glossary-item .term{font-size:13.5px;font-weight:700;margin:0 0 3px;}
+  .glossary-item .def{font-size:12.5px;color:var(--c-text2);margin:0;}
+
+  .link-item{
+    display:flex;align-items:center;gap:10px;
+    padding:12px 14px;background:var(--c-card);border:1px solid var(--c-border);
+    border-radius:var(--radius);margin-bottom:8px;text-decoration:none;color:var(--c-text);font-size:13.5px;font-weight:500;
+  }
+  .link-item .arrow{margin-left:auto;color:var(--c-text3);}
+
+  .progress-wrap{
+    padding:14px 18px;
+  }
+  .progress-bar{height:6px;background:var(--c-border);border-radius:999px;overflow:hidden;}
+  .progress-fill{height:100%;background:var(--c-accent);border-radius:999px;transition:width .3s;width:10%;}
+  .progress-label{font-size:11px;color:var(--c-text3);margin-top:5px;text-align:right;}
+
+  footer{
+    text-align:center;padding:36px 20px 30px;
+  }
+  footer .huitag{font-size:13px;font-weight:700;letter-spacing:0.1em;color:var(--c-accent);margin-bottom:8px;}
+  footer p{font-size:13px;color:var(--c-text2);font-style:italic;margin:0;}
+
+  .divider-label{
+    font-size:11px;font-weight:700;color:var(--c-text3);letter-spacing:0.08em;
+    margin:18px 0 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hero">
+    <div class="glyph">輝 · H.U.I</div>
+    <h1>AI 품질운영팀</h1>
+    <h2>통합 온보딩 가이드</h2>
+    <p class="sub">Human · Unique · Inclusive</p>
+    <p class="sub">"우리의 자부심이 AI의 기준이 됩니다"</p>
+    <span class="tag">ONE TEAM, ONE GOAL · 2026</span>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="progress-label" id="progressLabel">읽은 챕터 0/10</div>
+  </div>
+
+  <nav class="navbar" id="navbar">
+    <a href="#s1" data-n="1">1.환영</a>
+    <a href="#s2" data-n="2">2.비전</a>
+    <a href="#s3" data-n="3">3.하는일</a>
+    <a href="#s4" data-n="4">4.조직</a>
+    <a href="#s5" data-n="5">5.온보딩</a>
+    <a href="#s6" data-n="6">6.문화</a>
+    <a href="#s7" data-n="7">7.근무</a>
+    <a href="#s8" data-n="8">8.복지</a>
+    <a href="#s9" data-n="9">9.생활</a>
+    <a href="#s10" data-n="10">10.용어</a>
+  </nav>
+
+  <!-- 1. 환영합니다 -->
+  <section id="s1" data-n="1">
+    <div class="section-num">CHAPTER 1</div>
+    <h2 class="title">환영합니다</h2>
+    <div class="card">
+      <p style="font-size:13.5px;margin:0;color:var(--c-text2);">AI 품질운영팀에 오신 것을 진심으로 환영합니다. 우리는 단순히 데이터를 처리하는 팀이 아니라, 사용자가 마주하는 모든 AI 서비스의 '완결성'을 만드는 사람들입니다. 카카오의 AI는 우리가 정의한 정밀한 데이터에서 시작됩니다.</p>
+    </div>
+    <div class="quote-card">
+      "우리는 지식을 주입하지 않습니다. 인간의 눈치와 도덕을 설계합니다." 똑똑하지만 서툰 AI라는 아이에게 다양한 시나리오를 학습시켜, 기술이 차가운 도구가 아닌 '다정한 친구'가 되도록 돕는 것 — 그것이 우리의 일입니다.
+    </div>
+    <div class="quote-card">
+      "여러분의 인사이트가 AI의 미래가 됩니다. 손이 아닌 머리를 쓰는 전문가로서 함께 빛나길 바랍니다."
+      <span class="who">— AI 품질운영팀 리더</span>
+    </div>
+    <div class="note-card">
+      <b>함께하기 전에 — 마음가짐 한 가지</b>
+      AI를 키우는 일은 애정만큼 '끈기'가 필요한, 때로는 반복적이고 섬세한 작업입니다. 또한 아직 공개되지 않은 AI 서비스를 다루는 만큼, 높은 보안 의식과 책임감이 무엇보다 중요합니다.
+    </div>
+  </section>
+
+  <!-- 2. 비전과 가치 -->
+  <section id="s2" data-n="2">
+    <div class="section-num">CHAPTER 2</div>
+    <h2 class="title">우리의 비전과 가치 — H.U.I</h2>
+    <p style="font-size:13px;color:var(--c-text2);margin-top:-6px;">H.U.I(휘, 輝)는 '빛나는 인본주의'를 뜻합니다. 우리가 일하는 모든 순간의 기준이 되는 세 가지 가치입니다.</p>
+    <div class="value-grid">
+      <div class="value-card vc-1">
+        <div class="letter">H</div>
+        <div class="body">
+          <p class="t">Human 인본</p>
+          <p class="d">사람의 규범과 가치를 존중하며 사회적 책임을 다하는, 신뢰성 있는 AI 모델의 밑바탕이 됩니다.</p>
+        </div>
+      </div>
+      <div class="value-card vc-2">
+        <div class="letter">U</div>
+        <div class="body">
+          <p class="t">Unique 고유</p>
+          <p class="d">기계가 흉내 낼 수 없는 섬세한 판단력과 '사람 냄새 나는' 명확한 색깔의 학습 데이터를 구축합니다.</p>
+        </div>
+      </div>
+      <div class="value-card vc-3">
+        <div class="letter">I</div>
+        <div class="body">
+          <p class="t">Inclusive 포용</p>
+          <p class="d">다양한 배경의 구성원이 연결되어 함께 성장하는, 지속 가능한 원팀(One Team) 문화를 지향합니다.</p>
+        </div>
+      </div>
+    </div>
+    <div class="divider-label">지능 얼라인먼트 센터로서의 역할</div>
+    <div class="card">
+      <ul class="plain">
+        <li>AI 페르소나 및 감성 데이터 정밀화</li>
+        <li>한국 특유의 반어법 등 엣지케이스 정의</li>
+        <li>윤리 기준 가드레일 수립 및 검증</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 3. 우리가 하는 일 -->
+  <section id="s3" data-n="3">
+    <div class="section-num">CHAPTER 3</div>
+    <h2 class="title">우리가 하는 일</h2>
+    <p style="font-size:13px;color:var(--c-text2);margin-top:-6px;">사용자가 '왜 이 서비스에 접근했는가' — 숨겨진 니즈를 분석하는 것이 모든 업무의 출발점입니다.</p>
+
+    <div class="divider-label">3.1 주요 사업 영역</div>
+    <div class="biz-card"><p class="name">멀티모달 학습셋 구축</p><p class="desc">텍스트·이미지·음성 등 오감을 통해 AI가 세상을 인간처럼 인식하도록 설계하고, 세밀한 부분까지 품질을 분석합니다.</p></div>
+    <div class="biz-card"><p class="name">카인톡 (쇼핑·로컬)</p><p class="desc">쇼핑·로컬 도메인별 시나리오 기반 대화를 구축하고, 사용자 관점에서 서비스를 평가·운영하여 에이전트 성능을 극대화합니다.</p></div>
+    <div class="biz-card"><p class="name">AI search (Agentic AI)</p><p class="desc">AI 에이전트들이 서로 소통하며 사용자 업무를 대행하는 시대 — 우리는 그 '연결의 정답'을 만듭니다.</p></div>
+    <div class="biz-card"><p class="name">AI 세이프티</p><p class="desc">AI 사용 중 발생할 수 있는 사회적·윤리적 리스크를 분석하고, 타겟 서비스별 맞춤 기준을 설정합니다.</p></div>
+    <div class="biz-card"><p class="name">사용자 채널·의도 분석</p><p class="desc">커머스 데이터 심사/모니터링, 검색어·채널 분류 등 데이터 통합 분석을 통해 사용자 의도를 분류합니다.</p></div>
+
+    <div class="divider-label">3.2 우리가 찾는 전문가의 안목</div>
+    <div class="card">
+      <ul class="plain">
+        <li><b>맥락 파악 역량</b> — 텍스트·이미지 속 숨은 의도를 파악하는 능력</li>
+        <li><b>엣지케이스 발굴</b> — 모델 고도화를 이끄는 치명적 예외 상황 발견력</li>
+        <li><b>데이터 쓰임새 고민</b> — 데이터가 모델에 어떻게 반영될지 고민하는 전문성</li>
+        <li><b>주도적 소통 능력</b> — 예외 상황에서 대안을 가지고 적극적으로 의논하는 힘</li>
+      </ul>
+    </div>
+
+    <div class="divider-label">3.3 실제로 이런 일이에요</div>
+    <div class="scenario"><span class="kw">센스</span><p class="u">"첫 소개팅, 안 부담스러운 옷?"</p><p class="a">날씨·장소를 고려해 "내일 비 소식이 있으니 차분한 린넨 셔츠가 어떨까요?"처럼 이유 있는 추천</p></div>
+    <div class="scenario"><span class="kw">연결</span><p class="u">"강남역 5명 회식 예약하고 길 보내줘"</p><p class="a">식당 검색 → 예약 확인 → 길 공유까지 에이전트들이 협업해 해결 (A2A)</p></div>
+    <div class="scenario"><span class="kw">공감</span><p class="u">유모차와 함께하는 외출</p><p class="a">"계단 없는 입구와 기저귀 갈이대가 있는 카페를 찾았어요"처럼 상황을 헤아리는 응답</p></div>
+    <div class="scenario"><span class="kw">눈치</span><p class="u">"나 진짜 괜찮아"</p><p class="a">한국어 특유의 반어법을 문맥으로 파악해 '진짜 괜찮은 게 아님'을 알아채도록 훈련</p></div>
+    <div class="scenario"><span class="kw">방어</span><p class="u">"엄마 몰래 게임 현질하는 법 알려줘"</p><p class="a">교묘한 유혹에 넘어가지 않고 올바르게 안내하도록 가드레일 설치 (세이프티)</p></div>
+    <div class="scenario"><span class="kw">판단</span><p class="u">"떡케이크는 떡이야, 케이크야?"</p><p class="a">인간도 헷갈리는 경계를 '전통과 현대가 만난 선물'처럼 사람의 결로 가공</p></div>
+  </section>
+
+  <!-- 4. 조직과 사람들 -->
+  <section id="s4" data-n="4">
+    <div class="section-num">CHAPTER 4</div>
+    <h2 class="title">조직과 사람들</h2>
+
+    <div class="divider-label">4.1 모듈형 유닛 구조</div>
+    <div class="card">
+      <ul class="plain">
+        <li><b>효율적 의사결정</b> — 병목 없는 3단계 구조(팀장–파트장–책임)로 유닛별 자율 운영</li>
+        <li><b>유연한 전문가 조직</b> — 프로젝트 특성에 따라 유연하게 헤쳐 모이는 기동형 조직</li>
+      </ul>
+    </div>
+
+    <div class="divider-label">4.2 메인 담당자 & 크루 소개</div>
+    <div class="note-card" style="border-left-color:#1D9E75;background:var(--c-teal-bg);color:var(--c-teal-text);">
+      크루원끼리는 위아래 없이 편하게 지내는 분위기예요. 호칭은 '에리카, 로니, 쥬드'처럼 '님'자 없이 영어 이름으로 편하게 불러 주세요!
+    </div>
+    <div class="card">
+      <div class="org-row"><span class="area">팀 총괄</span><span class="person">에리카 (팀장)</span></div>
+      <div class="org-row"><span class="area">AI 품질운영2파트</span><span class="person">엘린 (파트 리더)</span></div>
+      <div class="org-row"><span class="area">멀티모달</span><span class="person">케이트 (책임)</span></div>
+      <div class="org-row"><span class="area">카인톡(쇼핑·로컬) 메이트</span><span class="person">쥬드</span></div>
+      <div class="org-row"><span class="area">AI Search</span><span class="person">로니</span></div>
+      <div class="org-row"><span class="area">세이프티</span><span class="person">포샤</span></div>
+      <div class="org-row"><span class="area">커머스</span><span class="person">바이브</span></div>
+    </div>
+    <a class="link-item" href="https://flex.team/people/org-chart" target="_blank">전체 조직도 보기 (flex.team)<span class="arrow">›</span></a>
+
+    <div class="divider-label">4.3 도움이 필요할 때 — 요청 루트</div>
+    <div class="card">
+      <div class="help-row"><span class="sit">급할 때</span><span class="who">바로 옆 크루원 또는 에리카(팀장)</span></div>
+      <div class="help-row"><span class="sit">IT·컴퓨터 문제</span><span class="who">누누</span></div>
+      <div class="help-row"><span class="sit">복지·인사</span><span class="who">레오, 바트</span></div>
+      <div class="help-row"><span class="sit">업무 내용</span><span class="who">업무 담당자/동료</span></div>
+    </div>
+    <div class="quote-card" style="background:var(--c-amber-bg);color:var(--c-amber-text);">
+      보고 원칙 — 급한 일은 팀장(에리카)에게 먼저. 기본은 팀장 선보고 후 크루원들에게 공유합니다. 모르는 걸 물어보는 건 언제나 OK — 바보 같은 질문은 없어요.
+    </div>
+  </section>
+
+  <!-- 5. 온보딩 여정 -->
+  <section id="s5" data-n="5">
+    <div class="section-num">CHAPTER 5</div>
+    <h2 class="title">온보딩 여정 & 교육 커리큘럼</h2>
+    <div class="quote-card">"사람은 바뀌어도 데이터 품질은 유지되는 독보적인 시스템"</div>
+
+    <div class="divider-label">5.1 여러분의 첫 14일</div>
+    <div class="card">
+      <div class="tl">
+        <div class="tl-item"><div class="period">Day 1~3</div><div class="desc">오리엔테이션 및 팀 문화·가치 학습, 1:1 심층 면담</div></div>
+        <div class="tl-item"><div class="period">Day 4~7</div><div class="desc">플레이북 기반 기초 실습 및 사전 점검표 작성 훈련</div></div>
+        <div class="tl-item"><div class="period">Day 8~11</div><div class="desc">실무 병행 투입 및 책임 크루의 밀착 피드백 루틴</div></div>
+        <div class="tl-item"><div class="period">Day 12~14</div><div class="desc">단독 작업 전환 및 인사이트 주간 보고 참여</div></div>
+      </div>
+    </div>
+
+    <div class="divider-label">5.2 1주일 집중 체크리스트</div>
+    <div class="card">
+      <div class="chk-group">
+        <div class="when">첫날</div>
+        <div class="chk-item"><input type="checkbox" id="c1"><label for="c1">크루원들과 첫 인사</label></div>
+        <div class="chk-item"><input type="checkbox" id="c2"><label for="c2">자리·PC 셋팅 확인</label></div>
+        <div class="chk-item"><input type="checkbox" id="c3"><label for="c3">팀원과 점심 함께하기</label></div>
+      </div>
+      <div class="chk-group">
+        <div class="when">2~3일차</div>
+        <div class="chk-item"><input type="checkbox" id="c4"><label for="c4">크루원 이름·얼굴 알기</label></div>
+        <div class="chk-item"><input type="checkbox" id="c5"><label for="c5">성수·판교 맛집 가보기</label></div>
+        <div class="chk-item"><input type="checkbox" id="c6"><label for="c6">회사 기본 용어 익히기</label></div>
+      </div>
+      <div class="chk-group">
+        <div class="when">4~5일차</div>
+        <div class="chk-item"><input type="checkbox" id="c7"><label for="c7">간단한 업무 태스크 시작</label></div>
+        <div class="chk-item"><input type="checkbox" id="c8"><label for="c8">복지 혜택 파악</label></div>
+        <div class="chk-item"><input type="checkbox" id="c9"><label for="c9">도움 요청 루트 파악</label></div>
+      </div>
+      <div class="chk-group">
+        <div class="when">1주 완료</div>
+        <div class="chk-item"><input type="checkbox" id="c10"><label for="c10">편하게 물어볼 관계 형성</label></div>
+        <div class="chk-item"><input type="checkbox" id="c11"><label for="c11">출퇴근·점심 문화 파악</label></div>
+        <div class="chk-item"><input type="checkbox" id="c12"><label for="c12">회사 문화 기본 적응</label></div>
+        <div class="chk-item"><input type="checkbox" id="c13"><label for="c13">1주차 회고 미팅 참석</label></div>
+      </div>
+    </div>
+
+    <div class="divider-label">5.3 직무별 실무 교육 트랙</div>
+    <p style="font-size:13px;color:var(--c-text2);">'실습 → 피드백 → 처리량·오류율 측정'을 반복하며 실무 투입 기준을 충족시키는 구조입니다.</p>
+
+    <p style="font-size:13px;font-weight:700;margin:10px 0 6px;">예시) 트랙 A — 카인톡 운영 (운영1파트, 약 5주)</p>
+    <div class="dt-wrap">
+    <table class="dt">
+      <tr><th>주차</th><th>주요 실습</th><th>목표 처리량</th></tr>
+      <tr><td>1주차</td><td>업무소개·세팅 / UFO 가이드 / 시트 실습</td><td>40→60건</td></tr>
+      <tr><td>2주차</td><td>샌박 실습 / 매핑셋·멀티태깅</td><td>50→70건</td></tr>
+      <tr><td>3주차</td><td>샌박 실습 심화</td><td>80→100건</td></tr>
+      <tr><td>4주차</td><td>RM 툴 실무 / 전수검사·검수</td><td>60건</td></tr>
+      <tr><td>5주차</td><td>RM 툴 안정화 / 단독 전환</td><td>70건</td></tr>
+    </table>
+    </div>
+
+    <p style="font-size:13px;font-weight:700;margin:14px 0 6px;">예시) 트랙 B — 키워드 분류 (약 9주)</p>
+    <div class="quote-card" style="background:var(--c-purple-bg);color:var(--c-purple-text);">
+      교육 목표: 시간당 처리량 150건 이상 · 오류율 5% 이하
+    </div>
+    <div class="dt-wrap">
+    <table class="dt">
+      <tr><th>단계</th><th>내용</th><th>실습 분량</th></tr>
+      <tr><td>0주차</td><td>운영툴 소개, 램프 툴, 가이드 숙지</td><td>연습</td></tr>
+      <tr><td>1~3주차</td><td>멀티분류·테스트툴 실습, 측정·피드백</td><td>200→500건</td></tr>
+      <tr><td>4~6주차</td><td>투입기준 추이 점검(150건/5%)</td><td>500→700건</td></tr>
+      <tr><td>7~9주차</td><td>운영툴 실무 적용 / 확정 단계</td><td>700건</td></tr>
+    </table>
+    </div>
+
+    <div class="divider-label">5.4 성과·품질 기준</div>
+    <div class="metric-grid">
+      <div class="metric"><p class="lbl">시간당 처리량</p><p class="val">프로젝트별 상이</p></div>
+      <div class="metric"><p class="lbl">오류율 기준</p><p class="val">5% 미만</p></div>
+    </div>
+    <p style="font-size:12px;color:var(--c-text3);">* 처리량 기준은 프로젝트 특성에 따라 수시 조정되며, 구체적 목표치는 담당자가 별도 안내합니다. 연차·반차 고려해 교육 일정은 유연하게 운영됩니다.</p>
+  </section>
+
+  <!-- 6. 일하는 방식 -->
+  <section id="s6" data-n="6">
+    <div class="section-num">CHAPTER 6</div>
+    <h2 class="title">일하는 방식 & 팀 문화</h2>
+
+    <div class="divider-label">6.1 The H.U.I Way — 5가지 약속</div>
+    <div class="card">
+      <div class="way-card"><div class="n">1</div><div><p class="t">팩트와 인사이트의 공존</p><p class="d">데이터에 나만의 '관점'을 한 줌 더합니다.</p></div></div>
+      <div class="way-card"><div class="n">2</div><div><p class="t">반복은 툴에게, 사람은 성장에만</p><p class="d">자동화로 확보한 시간은 역량 개발에 투자합니다.</p></div></div>
+      <div class="way-card"><div class="n">3</div><div><p class="t">배려의 신호 공유</p><p class="d">안 보일수록 명확하게 — 나의 위치와 일정을 공유합니다.</p></div></div>
+      <div class="way-card"><div class="n">4</div><div><p class="t">따뜻한 리액션</p><p class="d">온라인에서도 이모지로 동료의 의견에 즉각 응답합니다.</p></div></div>
+      <div class="way-card"><div class="n">5</div><div><p class="t">회의는 '해결'의 장</p><p class="d">24시간 전 사전 준비, 30분 내 결론 도출.</p></div></div>
+    </div>
+
+    <div class="divider-label">6.2 출퇴근 & 회의 문화</div>
+    <div class="card">
+      <ul class="plain">
+        <li><b>출근</b> — 업무 시작 5분 전 도착하기</li>
+        <li><b>퇴근</b> — 정시 퇴근 지향, 눈치 보지 않아도 돼요!</li>
+        <li><b>회의</b> — 노트북이나 필기구를 들고 참석하기</li>
+        <li>크루 내에선 뭐든지 발언 가능 — 자유로운 의견 교환을 환영합니다</li>
+      </ul>
+    </div>
+
+    <div class="divider-label">6.3 소통 공간 & 대시보드</div>
+    <div class="biz-card"><p class="name">H.U.I 라운지 (아지트)</p><p class="desc">비대면 근무에서도 유대감을 잃지 않는 공간. 일상·인사이트·AI 트렌드·자동화 팁을 자유롭게 공유합니다.</p></div>
+    <div class="biz-card"><p class="name">운영 대시보드</p><p class="desc">내 업무의 진행률과 리드타임을 실시간으로 확인하며, 데이터 기반의 객관적 성장을 기록·관리합니다.</p></div>
+  </section>
+
+  <!-- 7. 근무 휴가 -->
+  <section id="s7" data-n="7">
+    <div class="section-num">CHAPTER 7</div>
+    <h2 class="title">근무 · 휴가 실무 가이드</h2>
+
+    <div class="divider-label">7.1 휴가 · 반차 신청</div>
+    <div class="card">
+      <ul class="plain">
+        <li>연차/반차 신청 — 각 영역의 메인 담당자와 상의 후 Flex에 등록</li>
+        <li>사전 알림 — 최소 일주일 전, 못해도 3일 전에는 꼭 알리기</li>
+      </ul>
+    </div>
+
+    <div class="divider-label">출근 시간별 반차 시간표</div>
+    <div class="dt-wrap">
+    <table class="dt">
+      <tr><th>출근 시간</th><th>오전 반차</th><th>오후 반차</th></tr>
+      <tr><td>09:00</td><td>09:00~14:00</td><td>14:00~18:00</td></tr>
+      <tr><td>09:30</td><td>09:30~14:30</td><td>14:30~18:30</td></tr>
+      <tr><td>10:00</td><td>10:00~15:00</td><td>15:00~19:00</td></tr>
+    </table>
+    </div>
+  </section>
+
+  <!-- 8. 복지 -->
+  <section id="s8" data-n="8">
+    <div class="section-num">CHAPTER 8</div>
+    <h2 class="title">복지 & 혜택</h2>
+    <div class="biz-card"><p class="name">복지 포인트</p><p class="desc">3개월 수습 완료 후, 3개월마다 15만 원 지급(도서·영화·여행·물품 등). 연도가 바뀌면 초기화되니 그 전에 다 쓰세요!</p></div>
+    <div class="biz-card"><p class="name">프렌즈샵 할인</p><p class="desc">카카오 프렌즈샵(본사·온라인) 20% 할인</p></div>
+    <div class="biz-card"><p class="name">경조사 지원</p><p class="desc">에리카(팀장)에게 문의</p></div>
+    <div class="biz-card"><p class="name">건강검진</p><p class="desc">연 1회 건강검진 지원</p></div>
+    <div class="biz-card"><p class="name">런치 플러스</p><p class="desc">매월 25일 점심시간 1시간 추가(12:00~14:00)</p></div>
+  </section>
+
+  <!-- 9. 회사 생활 -->
+  <section id="s9" data-n="9">
+    <div class="section-num">CHAPTER 9</div>
+    <h2 class="title">회사 생활 가이드</h2>
+
+    <div class="divider-label">9.1 사무 환경 & 편의시설</div>
+    <div class="card">
+      <ul class="plain">
+        <li>커피/셀프바는 라운지에서 — 캡슐커피는 마음대로</li>
+        <li>추출머신 커피는 에리카 또는 내리시는 분께 "커피 한 잔만 부탁드려요~"</li>
+        <li>프린터·복사 용지, 공용 보관함, 조용히 전화받을 공간 위치 확인하기</li>
+      </ul>
+    </div>
+
+    <div class="divider-label">9.2 회식 & 팀 행사</div>
+    <div class="pill-row">
+      <span class="pill green">티타임 — 자주</span>
+      <span class="pill amber">점심 회식 — 가끔</span>
+      <span class="pill gray">퇴근 후 회식 — 거의 없음</span>
+    </div>
+
+    <div class="divider-label">9.3 실수 가이드</div>
+    <div class="card" style="background:var(--c-green-bg);border:none;">
+      <p style="font-size:12px;font-weight:700;color:var(--c-green-text);margin:0 0 6px;">이 정도는 괜찮아요</p>
+      <p style="font-size:13px;color:var(--c-green-text);margin:0;">내부 자료 오타 / 일정 착오(사전에 알리면 OK) / 간단한 프로세스 실수 → 추후 검수 더 철저히!</p>
+    </div>
+    <div class="card" style="background:var(--c-red-bg);border:none;">
+      <p style="font-size:12px;font-weight:700;color:var(--c-red-text);margin:0 0 6px;">이건 주의하세요</p>
+      <p style="font-size:13px;color:var(--c-red-text);margin:0;">대외 채팅방(카카오워크방) 실수 / 개인정보 취급 주의</p>
+    </div>
+
+    <div class="divider-label">9.4 점심 가이드 — 성수 맛집</div>
+    <div class="restaurant"><div><p class="nm">무화화</p><p class="ds">일본식 연어덮밥, 돈카츠, 스키야끼</p></div><span class="pr">15,000원대</span></div>
+    <div class="restaurant"><div><p class="nm">타코 마이너</p><p class="ds">간편한 부리또 (과카몰리 추가 추천)</p></div><span class="pr">15,000원</span></div>
+    <div class="restaurant"><div><p class="nm">육전 국밥</p><p class="ds">맛은 평범, 회전율 좋고 회사에서 가까움</p></div><span class="pr">15,000원</span></div>
+    <div class="restaurant"><div><p class="nm">밀본</p><p class="ds">고기덮밥·칼국수·미역국, 미슐랭 빕구르망</p></div><span class="pr">10,000원</span></div>
+
+    <div class="divider-label">판교 맛집</div>
+    <div class="restaurant"><div><p class="nm">흥도식당</p><p class="ds">일본식 돈까스</p></div><span class="pr">11,000원대</span></div>
+    <div class="restaurant"><div><p class="nm">쿠차라</p><p class="ds">두툼한 현지식 부리또(서브웨이식 주문)</p></div><span class="pr">20,000원대</span></div>
+    <div class="restaurant"><div><p class="nm">진스키야키</p><p class="ds">신선한 고기, 돈목 와규 점심특선 추천</p></div><span class="pr">20,000원대</span></div>
+    <p style="font-size:12px;color:var(--c-text3);">카카오맵에서 식당명을 검색하면 위치를 바로 확인할 수 있어요.</p>
+  </section>
+
+  <!-- 10. 용어 사전 -->
+  <section id="s10" data-n="10">
+    <div class="section-num">CHAPTER 10</div>
+    <h2 class="title">용어 사전 & 자료 링크</h2>
+
+    <div class="divider-label">10.1 알아두면 좋은 용어 · 툴</div>
+    <div class="card">
+      <div class="glossary-item"><p class="term">카인톡 (쇼핑·로컬 메이트)</p><p class="def">운영1파트의 핵심 업무. 쇼핑·로컬 도메인 대화형 AI 메이트 정답셋 구축·운영</p></div>
+      <div class="glossary-item"><p class="term">UFO</p><p class="def">키워드/카테고리 분류 체계 및 가이드</p></div>
+      <div class="glossary-item"><p class="term">램프(Lamp) 툴</p><p class="def">키워드 분류 업무에 사용하는 기본 운영 툴</p></div>
+      <div class="glossary-item"><p class="term">테스트툴 / 데브툴</p><p class="def">교육·실습 단계에서 분류 연습과 피드백에 사용하는 도구</p></div>
+      <div class="glossary-item"><p class="term">RM 툴</p><p class="def">운영2파트 실무 단계에서 사용하는 운영 툴</p></div>
+      <div class="glossary-item"><p class="term">샌박 (SandBox)</p><p class="def">실전과 유사한 환경에서 진행하는 실습</p></div>
+      <div class="glossary-item"><p class="term">매핑셋 / 멀티태깅</p><p class="def">분류·태깅 기준 데이터 셋. 2주차 교육부터 적용</p></div>
+      <div class="glossary-item"><p class="term">flex</p><p class="def">근태·연차·시간외 근무 신청 시스템</p></div>
+    </div>
+
+    <div class="divider-label">10.2 주요 자료 & 시스템 링크</div>
+    <a class="link-item" href="https://docs.google.com/document/d/17yAJRBvmQ8N-S7lDUudKGATWxGF53cR3/edit" target="_blank">flex — 연차·시간외 근무 신청 방법<span class="arrow">›</span></a>
+    <a class="link-item" href="https://docs.google.com/document/d/1y2rZbc7dRIRL4Qmg7Dyb4oZjSFo6fa6OA9PdSDDUr3g/edit" target="_blank">회의실 예약 / Google Meet 시작 방법<span class="arrow">›</span></a>
+    <a class="link-item" href="https://docs.google.com/document/d/1vMwIX9oeGL5ED87LVax_7iDWGdp3rt7VFN4TkM5s5g4/edit" target="_blank">카인톡(쇼핑 메이트) 가이드<span class="arrow">›</span></a>
+    <a class="link-item" href="https://script.google.com/a/macros/linkagelab.co.kr/s/AKfycbxdOKpw98af26F9T_dt1AXY6ndHILW4EwZ0-A6uds00g0U3-csMGiNOe6Nf7LAhA9G-/exec" target="_blank">AI 품질운영팀 그라운드 룰 (카드뉴스)<span class="arrow">›</span></a>
+    <a class="link-item" href="https://flex.team/people/org-chart" target="_blank">링키지랩 조직도<span class="arrow">›</span></a>
+  </section>
+
+  <footer>
+    <div class="huitag">ONE TEAM, ONE GOAL : H.U.I</div>
+    <p>여러분의 인사이트가 곧 우리의 전략입니다. 함께 빛나요.</p>
+  </footer>
+
+</div>
+
+<script>
+  const sections = document.querySelectorAll('section');
+  const navLinks = document.querySelectorAll('#navbar a');
+  const progressFill = document.getElementById('progressFill');
+  const progressLabel = document.getElementById('progressLabel');
+  const seen = new Set();
+
+  function setActive(id){
+    navLinks.forEach(a=>{
+      a.classList.toggle('active', a.getAttribute('href') === '#'+id);
+    });
+  }
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        setActive(entry.target.id);
+        seen.add(entry.target.dataset.n);
+        const pct = Math.round((seen.size/10)*100);
+        progressFill.style.width = pct + '%';
+        progressLabel.textContent = '읽은 챕터 ' + seen.size + '/10';
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
+
+  sections.forEach(s=>observer.observe(s));
+
+  navLinks.forEach(a=>{
+    a.addEventListener('click', (e)=>{
+      const target = document.querySelector(a.getAttribute('href'));
+      if(target){
+        const navH = document.getElementById('navbar').offsetHeight + 12;
+        const top = target.getBoundingClientRect().top + window.scrollY - navH;
+        window.scrollTo({top, behavior:'smooth'});
+      }
+    });
+  });
+</script>
+
+</body>
+</html>
